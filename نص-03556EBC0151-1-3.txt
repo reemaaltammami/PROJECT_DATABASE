@@ -1,0 +1,201 @@
+  SET FOREIGN_KEY_CHECKS = 0;
+create table PERSON(
+pID char(4) NOT NULL,
+Fname varchar(15) NOT NULL,
+Bdate date,
+CITY varchar(15),
+ZIPCODE  char(5) NOT NULL,
+PHONE char(9) NOT NULL,
+primary key(pID));
+
+create table patient(
+pID char(4) NOT NULL,
+  Cdate date,
+pIyD char(4) NOT NULL,
+primary key(pID),
+foreign key(pID) references PERSON(pID),
+ foreign key(pIyD) references physician(pID));
+ 
+ create table EMPLOYEE(
+pID char(4) NOT NULL,
+  Cdate date,
+
+primary key(pID),
+foreign key(pID) references PERSON(pID)
+);
+ 
+ 
+create table physician(
+pID char(4) NOT NULL,
+Mobile char(9) NOT NULL,
+specially varchar(15),
+primary key(pID),
+foreign key(pID) references PERSON(pID));
+
+create table Volunteer(
+pID char(4) NOT NULL,
+skill varchar(15),
+primary key(pID),
+foreign key(pID) references PERSON(pID));
+
+create table Staff(
+pID char(4) NOT NULL,
+job_class varchar(15),
+primary key(pID),
+foreign key(pID) references PERSON(pID));
+
+create table Nurse(
+pID char(4) NOT NULL,
+certificate varchar(15),
+care_name varchar(15)NOT NULL,
+primary key(pID),
+foreign key(pID) references PERSON(pID),
+foreign key(care_name) references care_center(care_name));
+
+create table Technical(
+pID char(4) NOT NULL,
+skill varchar(15),
+primary key(pID),
+foreign key(pID) references PERSON(pID));
+
+create table Resident(
+pID char(4) NOT NULL,
+date_admitted date,
+room varchar(15),
+bed varchar(15),
+care_name varchar(15)NOT NULL,
+primary key(pID),
+foreign key(pID) references PERSON(pID),
+ foreign key(room) references bed(room),
+   foreign key(bed) references bed(bed),
+  foreign key(care_name) references care_center(care_name));
+  
+  create table outpatient(
+pID char(4) NOT NULL,
+primary key(pID),
+foreign key(pID) references PERSON(pID));
+
+create table bedbed(
+room varchar(15),
+bed varchar(15),
+care_name varchar(15)NOT NULL,
+primary key(room,bed ),
+  foreign key(care_name) references care_center(care_name));
+  
+  
+create table visit(
+pID char(4) NOT NULL,
+vdate date,
+Commentt varchar(40),
+
+primary key(pID,vdate),
+foreign key(pID) references PERSON(pID));
+
+
+  
+
+  
+  
+create table laboratory(
+lab_name varchar(15) NOT NULL,
+ loction varchar(40)NOT NULL,
+primary key(lab_name));
+  
+
+
+  create table care_center(
+care_name varchar(15) NOT NULL,
+ loction varchar(40)NOT NULL,
+idnurse  char(4) NOT NULL,
+primary key(care_name, idnurse),
+  foreign key(idnurse) references RN(idnurse));
+   create table RNnurse(
+       pID char(4) NOT NULL,
+primary key(pID),
+foreign key(pID) references nurse(pID));
+  
+      create table work(
+      pID char(4) NOT NULL,
+        lab_name varchar(15) NOT NULL,
+       primary key(pID,lab_name),
+       foreign key(pID) references PERSON(pID),
+      foreign key(lab_name) references laboratory(lab_name));
+          
+
+
+
+
+INSERT INTO PERSON VALUES ('2040' , 'REEMA' ,'1999/11/17' , 'RIYADH' , '12345' , '555555559') ; 
+INSERT INTO PERSON VALUES ('2140' , 'NJOOD' ,'1999/8/14' , 'RIYADH' , '12355' , '555555589') ; 
+INSERT INTO PERSON VALUES ('2240' , 'MAHA' , '1998/9/16' , 'JEDDAH' , '12445' , '555555759') ; 
+INSERT INTO PERSON VALUES ('2340' , 'FAISAL' , '1997/11/16' , 'ABHA' , '11345' , '555545559') ; 
+INSERT INTO PERSON VALUES ('2440' , 'SAAD' , '1996/1/1' , 'RIYADH' , '22345' , '555551559') ; 
+INSERT INTO PERSON VALUES ('2540' , 'SARA' , '1996/10/6' , 'JEDDAH' , '02345' , '525555559') ; 
+INSERT INTO PERSON VALUES ('2640' , 'ALI' , '1999/2/2' , 'RIYADH' , '12045' , '555553559') ; 
+INSERT INTO PERSON VALUES ('2740' , 'RAND' , '1899/5/3' , 'RIYADH' , '12005' , '552553559') ;
+INSERT INTO PERSON VALUES ('2840' , 'LEENA' , '1959/8/9' , 'RIYADH' , '10005' , '555543559') ; 
+INSERT INTO PERSON VALUES ('2940' , 'MALIK' , '1969/11/1' , 'RIYADH' , '12225' , '565553559') ; 
+INSERT INTO PERSON VALUES ('2050' , 'SARA' , '1988/8/2', 'RIYADH' , '11225' , '565555559') ; 
+INSERT INTO PERSON VALUES ('2060' , 'REEMA' , '1979/3/7' , 'RIYADH' , '15225' , '566553559') ; 
+
+
+INSERT INTO patient VALUES ('2040' ,'2020/12/6' , '1020') ; 
+INSERT INTO patient VALUES ('2140' , '2020/12/7' , '1120') ; 
+INSERT INTO patient VALUES ('2240' ,'2021/1/2' , '1230') ;
+INSERT INTO patient VALUES ('2060' ,'1979/3/7' , '1240') ;
+INSERT INTO patient VALUES ('2050' ,'1988/8/2' , '1250') ;
+
+
+INSERT INTO physician VALUES ('2440' , '555551559' , 'NEUROLOGISTS') ;
+INSERT INTO physician VALUES ('2540' , '525555559' , 'DERMATOLOGISTS') ; 
+INSERT INTO physician VALUES ('2640' , '555553559' , 'PEDIATRICIANS') ;
+
+
+INSERT INTO Volunteer VALUES ('2740' , 'TEAMWORK') ; 
+INSERT INTO Volunteer VALUES ('2840' , 'COMMITMENT') ;
+
+
+
+INSERT INTO STAFF VALUES ('2740' , 'DOCTORS') ;
+INSERT INTO STAFF VALUES ('2640' , 'HELATH PROF') ;
+
+
+INSERT INTO nurse VALUES ('2050' , 'RN' , 'AL HABIB') ;
+INSERT INTO nurse VALUES ('2060' , 'CPN' , 'AL SEHA') ; 
+INSERT INTO nurse VALUES ('2070' , 'CRNA' , 'AL SHIFA') ;
+
+INSERT INTO outpatient VALUES ('2080') ;
+                             
+INSERT INTO Technical VALUES ('2090' , 'TIME MANGMENT') ;
+INSERT INTO Technical VALUES ('2001' , 'PROBLEM SOLVING') ;
+
+INSERT INTO Resident VALUES ('2002' ,'2020/10/9', '11' , '02' , 'AL SHIFA');
+INSERT INTO Resident VALUES ('2003' ,'2020/10/10' , '10' , '01' , 'AL HABIB');
+
+
+INSERT INTO bedbed VALUES('10' , '01' , 'AL HABIB');
+INSERT INTO bedbed VALUES('11' , '02' , 'AL SHIFA');
+INSERT INTO bedbed VALUES('12' , '03' , 'AL SEHA'); 
+                                                                                 
+INSERT INTO visit VALUES ('2004', '2020/11/3' , NULL);
+INSERT INTO visit VALUES ('2005','2020/11/5', NULL);
+
+
+
+INSERT INTO laboratory VALUES ('MICROBIOLOGY' , '3RD FLOOR') ; 
+INSERT INTO laboratory VALUES ('IMMUNOLOGY' , '3RD FLOOR') ;
+INSERT INTO laboratory VALUES ('CYTOLOGY' , '2ND FLOOR') ;
+
+INSERT INTO care_center VALUES ('AL HABIB' , 'AL JAZEERAH STR.' , '2050') ; 
+INSERT INTO care_center VALUES (' AL SEHA', 'AL OLAYA STR.' , '2060') ;
+INSERT INTO care_center VALUES (' AL SHIFA', 'KING SALMAN STR.' , '2070') ;
+
+INSERT INTO EMPLOYEE VALUES ('2140' , '2020/11/3' ) ;
+INSERT INTO EMPLOYEE VALUES ('2340' , '2020/12/5' ) ;
+
+INSERT INTO RNnurse VALUES ('2050') ;
+
+INSERT INTO WORK VALUES ('2001', 'MICROBIOLOGY') ;
+INSERT INTO WORK VALUES ('2090', ' IMMUNOLOGY ') ;
+
+  SET FOREIGN_KEY_CHECKS = 1;
